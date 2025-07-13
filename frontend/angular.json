@@ -31,15 +31,53 @@
               "node_modules/primeicons/primeicons.css"
             ],
             "scripts": []
-          }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "gestion-stages-frontend:build:production"
+            },
+            "development": {
+              "buildTarget": "gestion-stages-frontend:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
           "options": {
             "port": 4200
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "283dce9b-2fb6-44b0-a3f0-7bd8199fd6c4"
   }
 }

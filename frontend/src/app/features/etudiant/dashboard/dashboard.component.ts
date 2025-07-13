@@ -1,48 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { OffresService } from '../../../core/services/offres.service';
+import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NavbarComponent],
   template: `
     <div class="min-h-screen bg-gray-50">
-      <!-- Header -->
-      <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <h1 class="text-xl font-semibold">Tableau de bord Étudiant</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-              <span>{{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
-              <button (click)="logout()" class="text-red-600 hover:text-red-800">
-                Déconnexion
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Navigation -->
-      <nav class="bg-indigo-600">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="flex space-x-8">
-            <a routerLink="/etudiant" class="text-white px-3 py-4 hover:bg-indigo-700">
-              Accueil
-            </a>
-            <a routerLink="/etudiant/offres" class="text-white px-3 py-4 hover:bg-indigo-700">
-              Offres de stage
-            </a>
-            <a routerLink="/etudiant/candidatures" class="text-white px-3 py-4 hover:bg-indigo-700">
-              Mes candidatures
-            </a>
-          </div>
-        </div>
-      </nav>
+      <app-navbar 
+        title="Tableau de bord Étudiant" 
+        [navLinks]="navLinks">
+      </app-navbar>
 
       <!-- Contenu principal -->
       <main class="max-w-7xl mx-auto py-6 px-4">
@@ -96,10 +68,17 @@ import { OffresService } from '../../../core/services/offres.service';
 export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
   private offresService = inject(OffresService);
+  private router = inject(Router);
 
   currentUser = this.authService.getCurrentUser();
   stats = { candidatures: 0, enAttente: 0, acceptees: 0 };
   recentOffres: any[] = [];
+  
+  navLinks = [
+    { path: '/etudiant', label: 'Accueil' },
+    { path: '/etudiant/offres', label: 'Offres de stage' },
+    { path: '/etudiant/candidatures', label: 'Mes candidatures' }
+  ];
 
   ngOnInit() {
     this.loadStats();
@@ -119,5 +98,6 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/auth/demo']);
   }
 }

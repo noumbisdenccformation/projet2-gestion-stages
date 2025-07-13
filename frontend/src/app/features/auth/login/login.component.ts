@@ -84,6 +84,7 @@ export class LoginComponent {
         next: (response) => {
           const userRole = response.user.role.toLowerCase();
           this.router.navigate([`/${userRole}`]);
+          this.loading = false;
         },
         error: (err) => {
           this.error = 'Email ou mot de passe incorrect';

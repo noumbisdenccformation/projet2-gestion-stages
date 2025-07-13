@@ -6,7 +6,7 @@ import { User, AuthResponse } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class MockAuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
@@ -31,10 +31,10 @@ export class AuthService {
       localStorage.setItem('token', token);
       this.currentUserSubject.next(user);
       
-      return of(authResponse).pipe(delay(500));
+      return of(authResponse).pipe(delay(1000)); // Simule délai réseau
     }
     
-    return throwError(() => new Error('Identifiants incorrects')).pipe(delay(500));
+    return throwError(() => new Error('Identifiants incorrects')).pipe(delay(1000));
   }
 
   register(userData: any): Observable<AuthResponse> {
@@ -48,7 +48,7 @@ export class AuthService {
     return of({
       token: 'mock-jwt-token-' + newUser.id,
       user: newUser
-    }).pipe(delay(500));
+    }).pipe(delay(1000));
   }
 
   logout(): void {
