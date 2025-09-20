@@ -36,4 +36,5 @@ mvnw
 mvnw.cmd
 
 # Angular
-.angular/
+.angular/*.odt
+*.pdf
