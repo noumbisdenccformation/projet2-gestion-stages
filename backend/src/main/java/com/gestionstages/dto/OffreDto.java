@@ -37,7 +37,7 @@ public class OffreDto {
         this.datePublication = offre.getDatePublication();
         this.dateDebut = offre.getDateDebut();
         this.dateFin = offre.getDateFin();
-        this.statut = offre.getStatut().name();
+        this.statut = offre.getStatut().toString();
         this.salaire = offre.getSalaire();
     }
     

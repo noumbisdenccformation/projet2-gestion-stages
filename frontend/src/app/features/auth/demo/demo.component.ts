@@ -12,7 +12,7 @@ import { MockAuthService } from '../../../core/services/mock-auth.service';
       <div class="max-w-2xl w-full space-y-8">
         <div class="text-center">
           <h2 class="text-3xl font-extrabold text-gray-900">
-            🎯 Démonstration - Gestion des Stages
+            🎯 Projet - Gestion des Stages
           </h2>
           <p class="mt-2 text-gray-600">Choisissez un rôle pour tester</p>
         </div>

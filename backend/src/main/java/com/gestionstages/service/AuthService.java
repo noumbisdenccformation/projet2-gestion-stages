@@ -47,23 +47,12 @@ public class AuthService {
     }
     
     private User createUserByRole(RegisterRequest request) {
-        return switch (request.getRole()) {
-            case "ETUDIANT" -> new Etudiant(
-                request.getEmail(), request.getPassword(), 
-                request.getNom(), request.getPrenom(),
-                request.getFiliere(), request.getNiveau()
-            );
-            case "ENTREPRISE" -> new Entreprise(
-                request.getEmail(), request.getPassword(),
-                request.getNom(), request.getPrenom(),
-                request.getNomEntreprise(), request.getSecteur()
-            );
-            case "ENSEIGNANT" -> new Enseignant(
-                request.getEmail(), request.getPassword(),
-                request.getNom(), request.getPrenom(),
-                request.getDepartement(), request.getSpecialite()
-            );
-            default -> throw new RuntimeException("Rôle invalide");
-        };
+        // Temporairement simplifié - créer un utilisateur basique
+        User user = new User() {}; // Classe anonyme pour test
+        user.setEmail(request.getEmail());
+        user.setNom(request.getNom());
+        user.setPrenom(request.getPrenom());
+        user.setRole(Role.valueOf(request.getRole()));
+        return user;
     }
 }

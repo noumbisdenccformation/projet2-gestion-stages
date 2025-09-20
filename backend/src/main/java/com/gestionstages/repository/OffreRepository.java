@@ -18,4 +18,7 @@ public interface OffreRepository extends JpaRepository<Offre, Long> {
     List<Offre> findWithFilters(@Param("domaine") String domaine, 
                                @Param("duree") Integer duree, 
                                @Param("localisation") String localisation);
+    
+    @Query("SELECT o.domaine, COUNT(o) FROM Offre o GROUP BY o.domaine")
+    List<Object[]> countByDomaine();
 }

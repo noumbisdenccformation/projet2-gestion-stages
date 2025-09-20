@@ -76,6 +76,14 @@ public class Offre {
     public Integer getDuree() { return duree; }
     public void setDuree(Integer duree) { this.duree = duree; }
     
+    public Integer getDureeMois() { return duree; }
+    
+    @OneToMany(mappedBy = "offre")
+    private List<Candidature> candidatures;
+    
+    public List<Candidature> getCandidatures() { return candidatures; }
+    public void setCandidatures(List<Candidature> candidatures) { this.candidatures = candidatures; }
+    
     public String getLocalisation() { return localisation; }
     public void setLocalisation(String localisation) { this.localisation = localisation; }
     
@@ -98,6 +106,3 @@ public class Offre {
     public void setSalaire(Double salaire) { this.salaire = salaire; }
 }
 
-enum OffreStatut {
-    ACTIVE, FERMEE, POURVUE
-}

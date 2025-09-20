@@ -4,38 +4,51 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "entreprises")
-public class Entreprise extends User {
+public class Entreprise {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
-    @Column(nullable = false)
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    @Column(name = "nom_entreprise", nullable = false)
     private String nomEntreprise;
     
-    @Column(nullable = false)
     private String secteur;
+    private String adresse;
+    private String telephone;
     
-    private String siren;
-    private String adresseSiege;
+    @Column(name = "site_web")
+    private String siteWeb;
     
-    public Entreprise() {
-        super();
-        setRole(Role.ENTREPRISE);
-    }
+    private String description;
     
-    public Entreprise(String email, String password, String nom, String prenom, String nomEntreprise, String secteur) {
-        super(email, password, nom, prenom, Role.ENTREPRISE);
-        this.nomEntreprise = nomEntreprise;
-        this.secteur = secteur;
-    }
+    public Entreprise() {}
     
     // Getters et Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    
     public String getNomEntreprise() { return nomEntreprise; }
     public void setNomEntreprise(String nomEntreprise) { this.nomEntreprise = nomEntreprise; }
     
     public String getSecteur() { return secteur; }
     public void setSecteur(String secteur) { this.secteur = secteur; }
     
-    public String getSiren() { return siren; }
-    public void setSiren(String siren) { this.siren = siren; }
+    public String getAdresse() { return adresse; }
+    public void setAdresse(String adresse) { this.adresse = adresse; }
     
-    public String getAdresseSiege() { return adresseSiege; }
-    public void setAdresseSiege(String adresseSiege) { this.adresseSiege = adresseSiege; }
+    public String getTelephone() { return telephone; }
+    public void setTelephone(String telephone) { this.telephone = telephone; }
+    
+    public String getSiteWeb() { return siteWeb; }
+    public void setSiteWeb(String siteWeb) { this.siteWeb = siteWeb; }
+    
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }

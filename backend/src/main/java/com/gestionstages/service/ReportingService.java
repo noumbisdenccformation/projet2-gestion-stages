@@ -1,7 +1,9 @@
 package com.gestionstages.service;
 
 import com.gestionstages.entity.Candidature;
+import com.gestionstages.entity.CandidatureStatut;
 import com.gestionstages.entity.Offre;
+import com.gestionstages.entity.OffreStatut;
 import com.gestionstages.repository.CandidatureRepository;
 import com.gestionstages.repository.OffreRepository;
 import org.apache.poi.ss.usermodel.*;
@@ -165,11 +167,11 @@ public class ReportingService {
         Map<String, Object> stats = new HashMap<>();
         
         stats.put("totalOffres", offreRepository.count());
-        stats.put("offresActives", offreRepository.countByStatut(Offre.StatutOffre.ACTIVE));
+        stats.put("offresActives", offreRepository.findAll().stream().filter(o -> o.getStatut() == OffreStatut.ACTIVE).count());
         stats.put("totalCandidatures", candidatureRepository.count());
-        stats.put("candidaturesAcceptees", candidatureRepository.countByStatut(Candidature.StatutCandidature.ACCEPTEE));
-        stats.put("candidaturesEnAttente", candidatureRepository.countByStatut(Candidature.StatutCandidature.EN_ATTENTE));
-        stats.put("candidaturesRefusees", candidatureRepository.countByStatut(Candidature.StatutCandidature.REFUSEE));
+        stats.put("candidaturesAcceptees", candidatureRepository.findAll().stream().filter(c -> c.getStatut() == CandidatureStatut.ACCEPTEE).count());
+        stats.put("candidaturesEnAttente", candidatureRepository.findAll().stream().filter(c -> c.getStatut() == CandidatureStatut.EN_ATTENTE).count());
+        stats.put("candidaturesRefusees", candidatureRepository.findAll().stream().filter(c -> c.getStatut() == CandidatureStatut.REFUSEE).count());
         
         stats.put("statsByDomaine", getStatistiquesByDomaine());
         stats.put("statsByStatut", getStatistiquesByStatutCandidature());

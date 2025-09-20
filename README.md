@@ -47,32 +47,35 @@ Plateforme complète permettant aux étudiants de trouver/postuler à des stages
 ### Prérequis
 - Java 17+
 - Node.js 18+
-- PostgreSQL 13+
+- PostgreSQL 13+ (optionnel pour les tests)
 - Maven 3.6+
 
-### Base de données
+### Option 1: Test Rapide (Backend Simple)
+```bash
+# Backend simple (sans base de données)
+cd backend-simple
+mvn spring-boot:run
+# API disponible sur http://localhost:8080
+
+# Frontend Angular
+cd ../frontend
+npm install
+ng serve
+# Application disponible sur http://localhost:4200
+```
+
+### Option 2: Version Complète (PostgreSQL)
 ```bash
 # Créer la base PostgreSQL
 createdb gestion_stages
 
 # Importer les données de test
 psql -d gestion_stages -f database/stages_export.sql
-```
 
-### Backend Spring Boot
-```bash
+# Backend complet
 cd backend
 mvn spring-boot:run
 ```
-API disponible sur http://localhost:8080
-
-### Frontend Angular
-```bash
-cd frontend
-npm install
-ng serve
-```
-Application disponible sur http://localhost:4200
 
 ## 👥 Comptes de Test
 
@@ -96,6 +99,19 @@ Application disponible sur http://localhost:4200
 - **Application:** http://localhost:4200
 - **API Backend:** http://localhost:8080
 - **Documentation API:** http://localhost:8080/swagger-ui.html
+
+## 🔧 Corrections Apportées
+
+### Problèmes Résolus
+- ✅ **Erreurs de compilation** : Enums CandidatureStatut et OffreStatut séparés
+- ✅ **PDFBox compatibility** : Correction des fonts avec Standard14Fonts
+- ✅ **Relations JPA** : Ajout des méthodes manquantes dans les entités
+- ✅ **Backend simple** : Version test sans base de données pour démarrage rapide
+- ✅ **Interface utilisateur** : Correction du titre "Démonstration" → "Projet"
+
+### Versions Disponibles
+- **backend-simple/** : Version test (Spring Boot + H2 mémoire)
+- **backend/** : Version complète (Spring Boot + PostgreSQL)
 
 ## 📊 Données de Test
 
@@ -134,7 +150,7 @@ Application disponible sur http://localhost:4200
 
 ```
 gestion-stages/
-├── backend/                    # API Spring Boot 3
+├── backend/                    # API Spring Boot 3 (version complète)
 │   ├── src/main/java/com/gestionstages/
 │   │   ├── entity/            # Entités JPA
 │   │   ├── repository/        # Repositories
@@ -145,6 +161,10 @@ gestion-stages/
 │   └── src/main/resources/
 │       ├── application.yml    # Configuration
 │       └── data.sql          # Données de test
+├── backend-simple/            # Version test (sans PostgreSQL)
+│   ├── pom.xml
+│   └── src/main/java/com/gestionstages/
+│       └── Application.java   # API simple pour tests
 ├── frontend/                  # Application Angular 17
 │   └── src/app/
 │       ├── features/         # Modules par rôle

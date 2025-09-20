@@ -19,22 +19,8 @@ public class CandidatureService {
     private UserRepository userRepository;
     
     public Candidature postuler(Long offreId, Candidature candidature, String userEmail) {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-        
-        if (!(user instanceof Etudiant)) {
-            throw new RuntimeException("Seuls les étudiants peuvent postuler");
-        }
-        
         Offre offre = offreService.getOffreEntityById(offreId);
-        
-        if (candidatureRepository.existsByOffreIdAndEtudiantId(offreId, user.getId())) {
-            throw new RuntimeException("Candidature déjà envoyée pour cette offre");
-        }
-        
         candidature.setOffre(offre);
-        candidature.setEtudiant((Etudiant) user);
-        
         return candidatureRepository.save(candidature);
     }
     

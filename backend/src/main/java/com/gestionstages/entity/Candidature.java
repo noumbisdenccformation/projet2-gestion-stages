@@ -60,6 +60,3 @@ public class Candidature {
     public void setFeedback(String feedback) { this.feedback = feedback; }
 }
 
-enum CandidatureStatut {
-    EN_ATTENTE, ACCEPTEE, REFUSEE
-}
